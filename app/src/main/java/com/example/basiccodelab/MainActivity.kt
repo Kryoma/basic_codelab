@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -80,14 +82,14 @@ fun Greeting(name: String) {
 @Composable
 fun Greetings(
     modifier: Modifier = Modifier,
-    names: List<String> = listOf("World", "Compose")
+    names: List<String> = List(1000) {"$it"}
 ) {
-    Column(
+    LazyColumn(
         modifier = modifier
             .padding(vertical = 4.dp)
     ) {
-        for (name in names) {
-            Greeting(name = name)
+        items(items = names) {
+            name -> Greeting(name = name)
         }
     }
 }

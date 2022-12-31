@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.runtime.*
@@ -22,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,8 +38,7 @@ class MainActivity : ComponentActivity() {
             BasicCodelabTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
                     MyApp(modifier = Modifier.fillMaxSize())
                 }
@@ -64,10 +66,8 @@ fun MyApp(
 fun Greeting(name: String) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     val extraPadding by animateDpAsState(
-        if (expanded) 48.dp else 0.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
+        if (expanded) 48.dp else 0.dp, animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessLow
         )
     )
 
@@ -82,8 +82,7 @@ fun Greeting(name: String) {
                 .animateContentSize()
         ) {
             Column(
-                modifier = Modifier
-                    .weight(1f)
+                modifier = Modifier.weight(1f)
                 // クラッシュしないようにパディングに負数が入らないようにする。
                 //RpwにanimateContentSize修飾子を適用させて代用
 //                    .padding(bottom = extraPadding.coerceAtLeast(0.dp))
@@ -92,44 +91,27 @@ fun Greeting(name: String) {
                 Text(text = name)
                 if (expanded) Text(text = "お試しテキスト。")
             }
-            IconButton(
-                onClick = { expanded = !expanded }) {
+            IconButton(onClick = { expanded = !expanded }) {
                 Icon(
-                    ImageVector =
-                    if (expanded) Icons.Filled.ExpandLess
+                    imageVector = if (expanded) Icons.Filled.ExpandLess
                     else Icons.Filled.ExpandMore,
-                    contentDescription =
-                    if (expanded) {
+                    contentDescription = if (expanded) {
                         stringResource(id = (R.string.show_less))
                     } else {
                         stringResource(id = R.string.show_more)
                     }
                 )
-
             }
-//            Button(
-//                onClick = { expanded = !expanded },
-//                border = BorderStroke(width = 1.dp, color = Color.White)
-//            ) {
-//                Text(
-//                    if (expanded) stringResource(R.string.show_less)
-//                    else stringResource(R.string.show_more)
-//                )
-//            }
         }
-
     }
-
 }
 
 @Composable
 fun Greetings(
-    modifier: Modifier = Modifier,
-    names: List<String> = List(1000) { "$it" }
+    modifier: Modifier = Modifier, names: List<String> = List(1000) { "$it" }
 ) {
     LazyColumn(
-        modifier = modifier
-            .padding(vertical = 4.dp)
+        modifier = modifier.padding(vertical = 4.dp)
     ) {
         items(items = names) { name ->
             Greeting(name = name)
@@ -139,8 +121,7 @@ fun Greetings(
 
 @Composable
 fun OnBoardingScreen(
-    onContinueClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    onContinueClicked: () -> Unit, modifier: Modifier = Modifier
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -149,9 +130,7 @@ fun OnBoardingScreen(
     ) {
         Text(text = "Welcome to the Basic Codelab!")
         Button(
-            modifier = Modifier
-                .padding(bottom = 24.dp),
-            onClick = onContinueClicked
+            modifier = Modifier.padding(bottom = 24.dp), onClick = onContinueClicked
         ) {
             Text(text = "Continue")
 
@@ -160,10 +139,7 @@ fun OnBoardingScreen(
 }
 
 @Preview(
-    showBackground = true,
-    widthDp = 320,
-    uiMode = UI_MODE_NIGHT_YES,
-    name = "Dark"
+    showBackground = true, widthDp = 320, uiMode = UI_MODE_NIGHT_YES, name = "Dark"
 )
 @Composable
 fun DefaultPreview() {
